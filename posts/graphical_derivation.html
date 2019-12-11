@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128299627-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-128299627-1');
+</script>
+
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+      BayesHelsinki
+    </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,700,200" rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <!-- CSS Files -->
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/assets/css/now-ui-kit.css?v=1.3.0" rel="stylesheet" />
+  <link href="/assets/demo/demo.css" rel="stylesheet" />
+</head>
+
+<body class="profile-page sidebar-collapse">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
+    <div class="container">
+      <div class="navbar-translate">
+          <a class="navbar-brand" href="/index.html" rel="tooltip" title="Blog & Portfolio of Lauri Viljanen" data-placement="bottom">
+            BayesHelsinki
+          </a>
+        <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-bar top-bar"></span>
+          <span class="navbar-toggler-bar middle-bar"></span>
+          <span class="navbar-toggler-bar bottom-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse justify-content-end" id="navigation">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/about.html">
+              <i class="now-ui-icons education_hat"></i>
+              <p>About</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/blog.html">
+              <i class="now-ui-icons files_paper"></i>
+              <p>Blog</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- End Navbar -->
+<div class="wrapper">
+
+    <div class="page-header clear-filter page-header-small" filter-color="black">
+      <div class="page-header-image" data-parallax="true" style="background-image:url('./graphical_derivation/bg20.jpg');">
+      </div>
+      <div class="container">
+        <h1 class="title">Graphical Intuition Meets Algebra in OLS Estimation</h1>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="container">
+
+        <h3 class="title">Introduction</h3>
+
+ <h5 class="description">This is the first in series of blog posts that introduces the bayesian regression with a complete "for dummies" approach. The same concepts are of course taught in multiple textbooks already,
+   but I feel the traditional way of teaching regression techniques lacks the intuition needed by a newbie.
+   Consequently, these first blog posts around regression modeling are meant to ease the efforts of those just beginning their path of statistical modeling.
+    <br>
+    <br>
+    Here we go!</h5>
+
+    <h3 class="title">Graphical Derivation of Simple Linear Regression Coefficients</h3>
+
+<p>Let's begin with some artificial data: A very basic example could be that we have gathered measurements of <strong>weights</strong> and <strong>heights</strong> of five people and want to find out the relationship 
+  between these two variables - namely we want to find out: can we explain weights of people with the corresponding heights. The table below illustrates these measurements - 
+  heights in cm and weights in kilograms.</p>
+
+<div class="row justify-content-center">
+  <table class="table table-striped table-hover table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+      <thead>
+      <tr>
+      <th style="text-align:left;font-weight: bold;color: white;background-color: #2c2c2c;">
+      name
+      </th>
+      <th style="text-align:right;font-weight: bold;color: white;background-color: #2c2c2c;">
+      weight
+      </th>
+      <th style="text-align:right;font-weight: bold;color: white;background-color: #2c2c2c;">
+      height
+      </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td style="text-align:left;">
+      Anna
+      </td>
+      <td style="text-align:right;">
+      65.0
+      </td>
+      <td style="text-align:right;">
+      160.0
+      </td>
+      </tr>
+      <tr>
+      <td style="text-align:left;">
+      Donald
+      </td>
+      <td style="text-align:right;">
+      75.0
+      </td>
+      <td style="text-align:right;">
+      162.5
+      </td>
+      </tr>
+      <tr>
+      <td style="text-align:left;">
+      Tom
+      </td>
+      <td style="text-align:right;">
+      70.0
+      </td>
+      <td style="text-align:right;">
+      165.0
+      </td>
+      </tr>
+      <tr>
+      <td style="text-align:left;">
+      Dick
+      </td>
+      <td style="text-align:right;">
+      75.0
+      </td>
+      <td style="text-align:right;">
+      170.0
+      </td>
+      </tr>
+      <tr>
+      <td style="text-align:left;">
+      Harry
+      </td>
+      <td style="text-align:right;">
+      82.5
+      </td>
+      <td style="text-align:right;">
+      172.0
+      </td>
+      </tr>
+      </tbody>
+      </table>
+</div>
+
+
+<p>Let's begin by examining this relationship with a scatter plot.</p>
+
+<img class="img-fluid-70" src="./graphical_derivation/artificial_data.png">
+
+<br>
+<br>
+<p>Now as we are interested in linear regression modeling, we would like to find out <strong>How much on average does weight increase as we increase height?</strong></p>
+
+<p>Note that we are not saying anything about causality here - we do not claim that height causes more weight. We are just constructing a model, which turns heights into predicted weights, to illustrate how the ordinary least squares estimation works.</p>
+
+<p>Eyeballing the original scatter plot you can see that <strong>on average</strong> it would seem that weight increases with height (duh, now this is science!), 
+  potentially linearly. The OLS regression approximates the mean weights conditional on height. What does this mean? It means that for each value on the x-axis (height), 
+  we get an expected value of y, weight <span class="math inline">\(y=E(y|x)\)</span>. The interpretation works if the errors made by our model are evenly spread around the regression line. 
+  To ease our graphical derivation, let's take for granted the property that the regression line passes through the point: mean of weights and the mean of heights 
+  (illustrated with an orange dot in the graph). Every OLS regression line will satisfy this property. Now let's draw an increasing line through this point so that there will 
+  be approximately at least error to the actual data points as possible:</p>
+  <img class="img-fluid-70" src="./graphical_derivation/increasing_line.png">
+  <br>
+  <br>
+  <p>Looks like we did a pretty good job with our approximate line. This line has a simple equation <span class="math display">\[\widehat{weight_i} = \beta_0+\beta_1*height_i\]</span> which states that each weight can be approximated with height - the hat above weight denotes that any weight given by our model is an estimate. The parameters <span class="math inline">\(\beta_0\)</span> (intercept) and <span class="math inline">\(\beta_1\)</span> (slope) are the unknown parameters we are trying to find out. The value of <span class="math inline">\(\beta_1\)</span> describes how much we expect the weight to change as we increase height by one centimeter.</p>
+<p>We can see that for each of the five weights our model makes a mistake, depicted with orange deviations from the line. To clarify the distinction between <span class="math inline">\(\widehat{weight_i}\)</span> and <span class="math inline">\(weight_i\)</span>, it can be noted that each point on the line is an estimate of someone’s weight given that we know his/her height. Thus, the points on the line are the <span class="math inline">\(\widehat{weight_i}\)</span> values. The real <span class="math inline">\(weight_i\)</span> are the observed five weight values, depicted with individual five points. The residual, <span class="math inline">\(e_i=weight_i-\widehat{weight_i}\)</span>, is the difference between each observed value and estimated value.</p>
+<p>The increasing line that we drew is a good guess, but we would like find the best line that makes the least error possible to the actual data points, <span class="math inline">\(weight_i\)</span>.</p>
+<p><em>How to find out, which values of intercept and slope parameters would yield us the ideal fit?</em></p>
+<p>First solution that many think of is to find a line that minimizes the sum of the residuals - i.e. the suggestion would be: let’s find some values of slope and intercept so that the sum of residuals would be minimized: <span class="math inline">\(min(e_{Anna}+e_{Donald}+e_{Tom}+e_{Dick}+e_{Harry})\)</span>.</p>
+<p>Turns out that this method wouldn’t work too well. Actually, any line that goes through the mean of x and mean of y minimizes the residuals made by the model! This would not be very useful as there are infinite amount of such lines. The chart below illustrates this point. A completely different line passing through the same data and same point of two means, would also minimize the sum of residuals. Sum of residuals in both of these cases would equal to zero. This is because the models make positive and negative errors and as we sum those they cancel each other out and sum to zero: <span class="math inline">\(\Sigma_i^n e_i = e_{Anna}+e_{Donald}+e_{Tom}+e_{Dick}+e_{Harry}=0\)</span>.</p>
+<img class="img-fluid-70" src="./graphical_derivation/arbitrary_line.png">
+<br>
+<br>
+<p>We need a method to prevent the positive and negative residuals from canceling each other out and this is exactly what Ordinary Least Squares method does. With OLS we find a line that minimizes the <strong>squared</strong> residuals made by the model: <span class="math inline">\(min(e_{Anna}^2+e_{Donald}^2+e_{Tom}^2+e_{Dick}^2+e_{Harry}^2)\)</span>.</p>
+<p>The best way to understand this minimization is graphically. To illustrate the point of squares, let’s change the aspect ratio of the chart. The OLS regression minimizes the sum of the areas of the squares on the plot - easy, huh?</p>
+<img class="img-fluid-70" src="./graphical_derivation/least_squares.png">
+<br>
+<br>
+<p>All other lines than the one found with the OLS method would have larger total area of the squares, i.e. larger <strong>Sum of Squared Errors, SSE</strong>. This can be animated by rotating the line around the mean point of x and y and calculating the total area of the squares for each line with different slopes. In the figure below we have five different arbitrary lines that go through the mean point.
+</p>
+
+<div class="row justify-content-center">
+<img src="./graphical_derivation/rotating.gif">
+</div>
+
+<br>
+<br>
+
+<p>For each line, we calculate the SSE and see that as the slope parameter approaches the OLS line (orange line in graph) from the negative side, the SSE gets smaller. As the line rotates beyond the OLS line, the SSE will begin to increase.</p>
+<p>All of the five slope and intercept parameters and their corresponding SSE can be found from the table below.</p>
+
+<div class="row justify-content-center">
+<table class="table table-striped table-hover table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+    <thead>
+    <tr>
+    <th style="text-align:right;font-weight: bold;color: white;background-color: #2c2c2c;">
+    Slope
+    </th>
+    <th style="text-align:right;font-weight: bold;color: white;background-color: #2c2c2c;">
+    Intercept
+    </th>
+    <th style="text-align:right;font-weight: bold;color: white;background-color: #2c2c2c;">
+    SSE
+    </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td style="text-align:right;">
+    -1.95
+    </td>
+    <td style="text-align:right;">
+    397
+    </td>
+    <td style="text-align:right;">
+    980
+    </td>
+    </tr>
+    <tr>
+    <td style="text-align:right;">
+    -0.95
+    </td>
+    <td style="text-align:right;">
+    231
+    </td>
+    <td style="text-align:right;">
+    469
+    </td>
+    </tr>
+    <tr>
+    <td style="text-align:right;">
+    0.05
+    </td>
+    <td style="text-align:right;">
+    65
+    </td>
+    <td style="text-align:right;">
+    159
+    </td>
+    </tr>
+    <tr>
+    <td style="text-align:right;font-weight: bold;color: #f96332;">
+    1.05
+    </td>
+    <td style="text-align:right;font-weight: bold;color: #f96332;">
+    -101
+    </td>
+    <td style="text-align:right;font-weight: bold;color: #f96332;">
+    52
+    </td>
+    </tr>
+    <tr>
+    <td style="text-align:right;">
+    2.05
+    </td>
+    <td style="text-align:right;">
+    -267
+    </td>
+    <td style="text-align:right;">
+    148
+    </td>
+    </tr>
+    </tbody>
+    </table>
+  </div>
+    <p>The above table can be further illustrated by plotting SSE againts the slope parameter. With this exercise, we can see that a parabola function shape is emerging - this is very clear as we think that the SSE is a quadratic function of the residuals and the residuals are directly affected by the slope parameter.</p>
+    <p>To find a minimum of such parabola, we have to find the point of that parabola that has a slope of zero, i.e. a point in which the SSE will not decrease nor increase. The minimum point of this parabola is the OLS estimate for the slope parameter.</p>
+
+<div class="row justify-content-center">
+        <img src="./graphical_derivation/parabola.gif">
+</div>
+    <br>
+    <br>
+    <p>BOOM! There you have it! The graphical derivation makes the OLS very intuitive! Next we’ll proceed to the mathematical derivation to close gap between the algebra and the plots.</p>
+
+    <h3 class="title">Here comes the algebra</h3>
+
+    <p>As discussed above the equation for a line in x and y space is the following: <span class="math display">\[y = \beta_0 + \beta_1 x\]</span> It is very clear that such line could not have generated the observed data as increasing the height, we would just linearly increase the weight and get a straight line. We need some error for the theoretical model to be plausible. Thus, we will add an additional term to account for the <em>noise</em> around the line: <span class="math inline">\(y = \beta_0 + \beta_1 x + \epsilon\)</span>. The noise, <span class="math inline">\(\epsilon\)</span>, are independently and identically distributed random numbers from the normal distribution with zero mean. Note that, above we are not using the subscripts i as we are speaking generally about the theoretical model and not the five observations.</p>
+<p>The equation for each of the five different residuals is the following:</p>
+<p><span class="math display">\[Residual,e_i = y_i - \beta_0 - \beta_1 x_i\]</span> I have discarded the hat notation in this case for brevity, but to be precise here, each of the beta parameters should have a hat above them. The above equation just states that the residual made by the model for Anna is the real observed value minus the fitted value from our model. <span class="math display">\[e_{Anna} =y_{Anna}-\beta_0 - \beta_1 x_{Anna}\]</span></p>
+
+<p>Now, we would like to find such values for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> to make the least amount of error as possible. Consequently, we have ourselves a minimization problem. The graphical derivation illustrated the point that we cannot minimize just the sum of residuals, but we have to minimize the sum of squared residuals. The formula for the squared residuals is: <span class="math inline">\[e_i^2 = (y_i-\beta_0 - \beta_1 x_i)^2\]</span> and finally the minization problem is <span class="math display">\[min(\Sigma_i^n e_i^2) = min(\Sigma_i^n (y_i - \beta_0 - \beta_1 x_i)^2)\]</span></p>
+<p>The sum or sigma notation <span class="math inline">\(\Sigma_i^n\)</span>, is just a short-hand version of saying <span class="math inline">\(\Sigma_i e_i^2 = e_1^2+e_2^2+e_3^2+e_4^2+e_5^2\)</span>. The subscripts from 1 to 5 denote the five individual persons.</p>
+<p>Let's open the statement a bit:</p>
+<p><span class="math display">\[min(\Sigma_i^n (y_i - \beta_0 - \beta_1 x_i)^2)\]</span> <span class="math display">\[=\Sigma_i^n (y_i - \beta_0 - \beta_1 x_i)(y_i - \beta_0 - \beta_1 x_i)\]</span> <span class="math display">\[=\Sigma_i^n (y_i^2-2\beta_0y_i+\beta_0^2+2\beta_0\beta_1x_i-2\beta_1x_iy_i+\beta_1^2x_i^2)\]</span></p>
+<p>The above statement is easy to differentiate and then solve for values of slope and intercept. In the next section we solve for intercept.</p>
+<div id="derivation-of-the-intercept-parameter" class="section level3">
+<h3 class="title">Derivation of the intercept parameter</h3>
+<p>Next we differentiate with the respect to <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>. Why? Remember that the function above is the sum of squared residuals and this function is the parabola found earlier. The next step is to find the minimum of that parabola and that is done by finding the point where the derivative is zero. Remember that with partial derivatives, we treat other variables as constants. Let’s begin with <span class="math inline">\(\beta_0\)</span> as it is slightly easier <span class="math display">\[\frac{\delta}{\delta\beta_0}\Sigma_i^n (y_i^2-2\beta_0y_i+\beta_0^2+2\beta_0\beta_1x_i-2\beta_1x_iy_i+\beta_1^2x_i^2)\]</span> We get rid of all terms of the polynomial that exclude <span class="math inline">\(\beta_0\)</span>: <span class="math display">\[=\Sigma_i^n (-2y_i+2\beta_0+2\beta_1x_i)\]</span> Now let’s set the derivative equal to zero and solve <span class="math inline">\(\beta_0\)</span>. This is called the First Order Condition. <span class="math display">\[0=\Sigma_i^n (2\beta_0+2\beta_1x_i-2y_i)\]</span> <span class="math display">\[0=\Sigma_i^n (2\beta_0)+\Sigma_i^n(2\beta_1x_i)-\Sigma_i^n(2y_i)\]</span> Next we’ll take the multiplication constants in each summation out of the summation. Remember that if c is constant then <span class="math inline">\(\Sigma_i^ncx_i = cx_1+...+cx_n=c(x_1+...+x_n)=c\Sigma_i^nx_i\)</span>.</p>
+<p><span class="math display">\[0=2\Sigma_i^n (\beta_0)+2\beta_1\Sigma_i^n(x_i)-2\Sigma_i^n(y_i)\]</span> Note also that sum of a constant is <span class="math inline">\(\Sigma_i^nc=nc\)</span>. <span class="math display">\[0=n2\beta_0+2\beta_1\Sigma_i^n(x_i)-2\Sigma_i^n(y_i)\]</span> Divide both sides by 2. <span class="math display">\[0=n\beta_0+\beta_1\Sigma_i^n(x_i)-\Sigma_i^n(y_i)\]</span> Remember that the sum of numbers <span class="math inline">\(\Sigma_i^nx_i\)</span> divided by the count of numbers <span class="math inline">\(n\)</span> is the mean <span class="math inline">\(\bar{x}\)</span>. Thus, divide both sides with n and rearrange <span class="math inline">\(\beta_0\)</span> to LHS.</p>
+<p><span class="math display">\[\beta_0=\bar{y}-\beta_1\bar{x}\]</span> Now we have a very simple formula for the intercept parameter - the intercept is just the mean of y minus the mean of x multiplied by the slope parameter.</p>
+
+<h3 class="title">Derivation of the slope parameter</h3>
+<p>Next, we proceed to derivation of the slope parameter. We’ll begin with the same set up as with the intercept, but this time we’ll differentiate with the respect to slope, <span class="math inline">\(\beta_1\)</span>:</p>
+<p><span class="math display">\[\frac{\delta}{\delta\beta_1}\Sigma_i^n (y_i^2-2\beta_0y_i+\beta_0^2+2\beta_0\beta_1x_i-2\beta_1x_iy_i+\beta_1^2x_i^2)\]</span> <span class="math display">\[=\Sigma_i^n (2\beta_0x_i+2\beta_1x_i^2-2x_iy_i)\]</span> Set the partial derivative to zero- i.e. the First Order Condition: <span class="math display">\[0=\Sigma_i^n (2\beta_0x_i+2\beta_1x_i^2-2x_iy_i)\]</span> <span class="math display">\[0=\Sigma_i^n(-2(y_ix_i-\beta_0x_i-\beta_1x_i^2))\]</span> Take the constant out of the summation and divide by -2. <span class="math display">\[0=\Sigma_i^n(y_ix_i-\beta_0x_i-\beta_1x_i^2)\]</span> Substitute <span class="math inline">\(\beta_0\)</span>: <span class="math display">\[0=\Sigma_i^n(y_ix_i-(\bar{y}-\beta_1\bar{x})x_i-\beta_1x_i^2)\]</span> <span class="math display">\[0=\Sigma_i^n(y_ix_i)-\bar{y}\Sigma_i^nx_i+\beta_1\bar{x}\Sigma_i^nx_i-\beta_1\Sigma_i^nx_i^2\]</span> Rearrange terms containg <span class="math inline">\(\beta_1\)</span> to LHS: <span class="math display">\[\beta_1\Sigma_i^nx_i^2-\beta_1\bar{x}\Sigma_i^nx_i=\Sigma_i^n(y_ix_i)-\bar{y}\Sigma_i^nx_i\]</span> Common factor: <span class="math display">\[\beta_1(\Sigma_i^nx_i^2-\bar{x}\Sigma_i^nx_i)=\Sigma_i^n(y_ix_i)-\bar{y}\Sigma_i^nx_i\]</span> <span class="math display">\[\beta_1=\frac{\Sigma_i^n(y_ix_i)-\bar{y}\Sigma_i^nx_i}{(\Sigma_i^nx_i^2-\bar{x}\Sigma_i^nx_i)}\]</span> Sum of all x equals n times the mean of x: <span class="math display">\[\beta_1=\frac{\Sigma_i^n(y_ix_i)-\bar{y}\Sigma_i^nx_i}{\Sigma_i^nx_i^2-n\bar{x}^2}\]</span> This is the trickiest part. Add a zero to the equation <span class="math inline">\(0=-n\bar{x}\bar{y}+n\bar{x}\bar{y}\)</span>: <span class="math display">\[\beta_1=\frac{\Sigma_i^n(y_ix_i)-\Sigma_i^n(x_i)\bar{y}-n\bar{x}\bar{y}+n\bar{x}\bar{y}}{\Sigma_i^nx_i^2-n\bar{x}^2}\]</span> Note that <span class="math inline">\(n\bar{x}\bar{y}\)</span> equals <span class="math inline">\(\Sigma_i^n(y_i)\bar{x}\)</span>, but it also equals <span class="math inline">\(\Sigma_i^n(\bar{x}\bar{y})\)</span>: <span class="math display">\[\beta_1=\frac{\Sigma_i^n(y_ix_i)-\Sigma_i^n(x_i)\bar{y}-\Sigma_i^n(y_i)\bar{x}+\Sigma_i^n(\bar{x}\bar{y})}{\Sigma_i^nx_i^2-n\bar{x}^2}\]</span> <span class="math display">\[\beta_1=\frac{\Sigma_i^n(y_ix_i-x_i\bar{y}-y_i\bar{x}+\bar{x}\bar{y})}{\Sigma_i^nx_i^2-n\bar{x}^2}\]</span> <span class="math display">\[\beta_1=\frac{\Sigma_i^n(y_i(x_i-\bar{y})-\bar{y}(x_i-\bar{x})}{\Sigma_i^nx_i^2-n\bar{x}^2}\]</span> <span class="math display">\[\beta_1=\frac{\Sigma_i^n(y_i-\bar{y})(x_i-\bar{x})}{\Sigma_i^n(x_i^2-\bar{x}^2)}\]</span> Wow! There you have it. We could stop here if we wanted to, but now we can easily show another useful property. If we divide both the numerator and denominator by n-1 (these will cancel out, so we won’t break the equation here). We obtain a numerator and a denominator, which we immediately recognize as covariance and variance:</p>
+<p>Numerator is the covariance of y and x: <span class="math display">\[Covariance=\frac{\Sigma_i^n(y_i-\bar{y})(x_i-\bar{x})}{n-1}\]</span> Denominator is the variance of x: <span class="math display">\[Variance=\frac{\Sigma_i^n(x_i^2-\bar{x}^2)}{n-1}\]</span></p>
+<p>Consequently, the slope parameter can also be expressed as</p>
+<p><span class="math display">\[\beta_1 = \frac{Cov(x,y)}{Var(x)}\]</span></p>
+<p>This property can be easily verified by calculating covariance of the weights and heights and then dividing the result with the variance of heights. Try it out yourself!</p>
+<p>Now we have illustrated the derivation and idea of Simple Linear Regression. To truly master the linear regression (and many other models), we need to solve the same estimators with matrix algebra. This is the topic of the <a href="matrix_derivation.html">next post</a>.</p>
+        
+      </div>
+    </div>
+</div>
+
+  <div class="section section-download" id="#download-section" data-background-color="black">    
+    <div class="container">
+        <div class="section-team text-center">
+          <div class="content-center brand">
+              <img class="n-logo" src="/assets/img/bh-small.png" alt="">
+          </div>
+        </div>
+
+        <br>
+        <div class="row justify-content-md-center sharing-area text-center">
+          <div class="text-center col-md-12 col-lg-8">
+            <h3 class = "title">You can reach me through my LinkedIn profile</h3>
+          </div>
+          <div class="text-center col-md-12 col-lg-8">
+            <a target="_blank" href="https://www.linkedin.com/in/lauriviljanen" class="btn btn-neutral btn-icon btn-linkedin btn-lg btn-round" rel="tooltip" title="Lauri Viljanen">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+  </div>
+</div>
+
+  <footer class="footer" data-background-color="black">
+    <div class=" container ">
+      <nav>
+        <ul>
+          <li>
+            <a href="https://www.bayeshelsinki.com">
+              BayesHelsinki
+            </a>
+          </li>
+          <li>
+            <a href="/about.html">
+              About
+            </a>
+          </li>
+          <li>
+            <a href="/blog.html">
+              Blog
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="copyright" id="copyright">
+        &copy;
+        <script>
+          document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
+        </script>
+      </div>
+    </div>
+  </footer>
+
+  <!--   Core JS Files   -->
+  
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+  <script src="/assets/js/core/jquery.min.js" type="text/javascript"></script>
+  <script src="/assets/js/core/popper.min.js" type="text/javascript"></script>
+  <script src="/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+  <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+  <script src="/assets/js/plugins/bootstrap-switch.js"></script>
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <script src="/assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+  <!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
+  <script src="/assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
+  <script src="/assets/js/now-ui-kit.js?v=1.3.0" type="text/javascript"></script>
+  <script>
+    $(document).ready(function() {
+      nowuiKit.initContactUsMap();
+    });
+  </script>
+</body>
+
+</html>
